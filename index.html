@@ -33,7 +33,6 @@
 		}
 		.symbols {
 			background: lightblue;
-			vertical-align: top;
 			margin-right: 2rem;
 		}
 		.slider {
@@ -42,6 +41,7 @@
 			width: 100px;
 			height: 6px;
 			margin-right: 0.2rem;
+			display:inline-block;
 			vertical-align: middle;
 			position: relative;
 		}
@@ -55,9 +55,11 @@
 			border: 1px  solid grey;
 			transform: translateY(-25%);
 			box-shadow: 0 0 3px rgba(0,0,0,0.3);
+			cursor: pointer;
 		}
 	</style>
-	<script defer src='script.js'></script>
+	<!-- class file  -->
+	<script src='script.js'></script>
 </head>
 <body>
 	<h1>Pyramid Slide</h1>
@@ -71,12 +73,21 @@
 				<option value="X">X</option>
 			</select>
 			<span>How high? </span>
-			<div class="slider" data-component="slider" style="display:inline-block">
+			<div class="slider" data-component="slider">
 				<div class="thumb"></div>
 			</div>
-			<span id="height">0</span>
+			<p data-component="height" style="display: inline-block; width: 15px">0</p>
 		</div>
-		<div class="screen"></div>
+		<div class="screen" data-component="screen"></div>
 	</div>
+	<!-- initializing pyramid-slider -->
+	<script>
+		let pyramidSlider = new PyramidSlider({
+			elem: document.querySelector('[data-component=pyramid-slide]'),
+			onchange(e){
+				this._parts.height.textContent = e.detail;
+			}
+		})
+	</script>
 </body>
 </html>
