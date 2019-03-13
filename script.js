@@ -35,14 +35,13 @@ class PyramidSlider {
 				})[0].value;
 				
 				// sending event
-
 				sendEvent.call(this,'pyramid', {brick});
 			}
 		})
 
 	}
 	pyramidDraw(){
-		let height = this.height;
+		let height = +this.height;
 		let brick = this.brick;
 		let pyramid = '';
 
@@ -91,9 +90,11 @@ class Slider {
 		if(left >= right ) left = right;
 
 		style.left = left + 'px';
+
 		this.now = Math.round(left/this.denominator);
 
-		sendEvent.call(this, 'pyramid',{height:this.now});
+		sendEvent.call(this, 'pyramid',{height:String(this.now)});
+
 	}
 	setValue(value){
 		this._thumb.style.left = this.denominator * value +'px';
@@ -109,7 +110,6 @@ class Select {
 	}
 
 }
-
 function sendEvent(name, detail){
 		let event = new CustomEvent(name, {
 			bubbles: true,
