@@ -2,40 +2,54 @@ const DC = '[data-component='
 
 class PyramidSlider {
 	constructor({elem, onchange}) {
-		this._pyramid = elem;
+		this._elem = elem;
 
 		this._parts = {
-			select: this._pyramid.querySelector(DC+'select]'),
-			slider: this._pyramid.querySelector(DC+'slider]'),
-			height: this._pyramid.querySelector(DC+'height]'),
-			screen: this._pyramid.querySelector(DC+'screen]')
+			select: this._elem.querySelector(DC+'select]'),
+			slider: this._elem.querySelector(DC+'slider]'),
+			height: this._elem.querySelector(DC+'height]'),
+			screen: this._elem.querySelector(DC+'screen]')
 		};
 
 		this.onchange = onchange;
+		this.height = null;
 
-		//initializind slider
+		//initializing slider
 		this._slider = new Slider({
 			elem: this._parts.slider,
 			max: 14,
 		})
 
 		// handlers on changing slider value
-		setListener(this, this._pyramid, 'change', this.onchange);
+		setListener(this, this._elem, 'pyramid', this.onchange);
 
 		// setting slider value
-		this._slider.setValue(4);
+		this._slider.setValue(7);
+
+		//initializing select
+		this._select = new Select({
+			elem: this._parts.select,
+			onchange(e){
+				let brick = [...e.target.options].filter( elt => {
+					return elt.selected
+				})[0].value;
+				
+				// sending event
+
+				sendEvent.call(this,'pyramid', {brick});
+			}
+		})
 
 	}
-	pyramidDraw(e){
-		let height = e.detail;
+	pyramidDraw(){
+		let height = this.height;
+		let brick = this.brick;
 		let pyramid = '';
 
 		for(let i = 1; i<= height; i++){
-			pyramid +='&nbsp'.repeat(height-i) + '#'.repeat(i) +'<br>'; 
+			pyramid +='&nbsp'.repeat(height-i) + brick.repeat(i) +'<br>'; 
 		}
-
 		return pyramid;
-
 	}
 
 }
@@ -79,12 +93,21 @@ class Slider {
 		style.left = left + 'px';
 		this.now = Math.round(left/this.denominator);
 
-		sendEvent.call(this, 'change', this.now);
+		sendEvent.call(this, 'pyramid',{height:this.now});
 	}
 	setValue(value){
 		this._thumb.style.left = this.denominator * value +'px';
-		sendEvent.call(this, 'change', parseInt(this._thumb.style.left)/this.denominator);
+		sendEvent.call(this, 'pyramid', {height:parseInt(this._thumb.style.left)/this.denominator});
 	}
+}
+class Select {
+	constructor({elem, onchange}){
+		this._elem = elem;
+		this.onchange = onchange;
+		// handlers on changing Brick Symbol value
+		setListener(this, this._elem, 'change', this.onchange); 
+	}
+
 }
 
 function sendEvent(name, detail){
