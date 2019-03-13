@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pyramid-slide</title>
+	<style>
+		html {
+			font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
+		}
+		.pyramid-slide {
+			width: 60%;
+			margin: 0 auto;
+		}
+		h1 {
+			width: 80%;
+			margin: 0 auto;
+			text-align: center;
+			background: linear-gradient(to right,#FF0081,#E900F4);
+			padding: 2rem 1rem;
+			margin-bottom: 2rem;
+		}
+		.pyramid-slide {
+			border: 1px solid #F900F4;
+		}
+		.menu {
+			background: grey;
+			padding: 2rem;
+			text-align: center;
+		}
+		.screen {
+			background: lightgrey;
+			padding: 2rem;
+		}
+	</style>
+	<script defer src='script.js'></script>
+</head>
+<body>
+	<h1>Pyramid Slide</h1>
+	<div class="pyramid-slide" data-component="pyramid-slide">
+		<div class="menu">
+			<span>Brick Symbol: </span>
+			<select data-component="select" class="sybols">
+				<option value="#">#</option>
+				<option value="@">@</option>
+				<option value="$">$</option>
+				<option value="X">X</option>
+			</select>
+			<span>How high? </span>
+			<div class="slider" data-component="slider" style="display:inline-block"></div>
+		</div>
+		<div class="screen"></div>
+	</div>
+</body>
+</html>
