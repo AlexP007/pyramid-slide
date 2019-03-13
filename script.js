@@ -12,11 +12,30 @@ class PyramidSlider {
 		};
 
 		this.onchange = onchange;
+
+		//initializind slider
 		this._slider = new Slider({
 			elem: this._parts.slider,
 			max: 14,
 		})
+
+		// handlers on changing slider value
 		setListener(this, this._pyramid, 'change', this.onchange);
+
+		// setting slider value
+		this._slider.setValue(4);
+
+	}
+	pyramidDraw(e){
+		let height = e.detail;
+		let pyramid = '';
+
+		for(let i = 1; i<= height; i++){
+			pyramid +='&nbsp'.repeat(height-i) + '#'.repeat(i) +'<br>'; 
+		}
+
+		return pyramid;
+
 	}
 
 }
@@ -32,8 +51,6 @@ class Slider {
 		this._thumb.addEventListener('mousedown',this.startSliding.bind(this))
 
 		this._thumb.ondragstart = function(){return false};
-
-
 	}
 	startSliding(e){
 
@@ -50,9 +67,7 @@ class Slider {
 
 		}.bind(this));
 	}
-
 	moveSlider(e){
-
 		let style = this._thumb.style;
 		let left = e.pageX - this.shiftX - this.coords.left;
 		if(left <= 0) left = 0;
@@ -65,8 +80,10 @@ class Slider {
 		this.now = Math.round(left/this.denominator);
 
 		sendEvent.call(this, 'change', this.now);
-
-
+	}
+	setValue(value){
+		this._thumb.style.left = this.denominator * value +'px';
+		sendEvent.call(this, 'change', parseInt(this._thumb.style.left)/this.denominator);
 	}
 }
 

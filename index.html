@@ -30,6 +30,7 @@
 		.screen {
 			background: lightgrey;
 			padding: 2rem;
+			text-align: center;
 		}
 		.symbols {
 			background: lightblue;
@@ -38,7 +39,7 @@
 		.slider {
 			background: lightblue;
 			box-shadow: 0 2px 1px inset rgba(0,0,0,0.3);
-			width: 100px;
+			width: 150px;
 			height: 6px;
 			margin-right: 0.2rem;
 			display:inline-block;
@@ -86,6 +87,7 @@
 			elem: document.querySelector('[data-component=pyramid-slide]'),
 			onchange(e){
 				this._parts.height.textContent = e.detail;
+				this._parts.screen.innerHTML = this.pyramidDraw(e);
 			}
 		})
 	</script>
