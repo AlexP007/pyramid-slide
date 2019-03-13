@@ -10,23 +10,20 @@
 			font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
 		}
 		.pyramid-slide {
-			width: 60%;
+			width: 70%;
 			margin: 0 auto;
+			border: 1px solid #F900F4;
 		}
 		h1 {
 			width: 80%;
-			margin: 0 auto;
+			margin: 0 auto 2rem;
 			text-align: center;
 			background: linear-gradient(to right,#FF0081,#E900F4);
-			padding: 2rem 1rem;
-			margin-bottom: 2rem;
-		}
-		.pyramid-slide {
-			border: 1px solid #F900F4;
+			padding: 2rem 0;
 		}
 		.menu {
 			background: grey;
-			padding: 2rem;
+			padding: 2rem 0;
 			text-align: center;
 		}
 		.screen {
@@ -36,7 +33,6 @@
 		}
 		.symbols {
 			background: lightblue;
-			margin-right: 2rem;
 		}
 		.slider {
 			background: lightblue;
@@ -44,7 +40,7 @@
 			width: 150px;
 			height: 6px;
 			margin-right: 0.2rem;
-			display:inline-block;
+			display: inline-block;
 			vertical-align: middle;
 			position: relative;
 		}
@@ -60,6 +56,23 @@
 			box-shadow: 0 0 3px rgba(0,0,0,0.3);
 			cursor: pointer;
 		}
+		.wrapper {
+			display: inline-block;
+			margin-top: 1rem;
+			margin-right: 2rem;
+			text-align: center;
+		}
+		@media screen and (max-width: 768px) {
+			h1 {
+				width: 100%;
+			}
+			.pyramid-slide {
+				width: 100%;
+			}
+			.wrapper {
+				margin-right: 0;
+			}
+		}
 	</style>
 	<!-- class file  -->
 	<script src='script.js'></script>
@@ -68,18 +81,22 @@
 	<h1>Pyramid Slide</h1>
 	<div class="pyramid-slide" data-component="pyramid-slide">
 		<div class="menu">
-			<span>Brick Symbol: </span>
-			<select data-component="select" class="symbols">
-				<option value="#">#</option>
-				<option value="@">@</option>
-				<option value="$">$</option>
-				<option value="X">X</option>
-			</select>
-			<span>How high? </span>
-			<div class="slider" data-component="slider">
-				<div class="thumb"></div>
+			<div class="wrapper">
+				<span>Brick Symbol: </span>
+				<select data-component="select" class="symbols">
+					<option value="#">#</option>
+					<option value="@">@</option>
+					<option value="$">$</option>
+					<option value="X">X</option>
+				</select>
 			</div>
-			<p data-component="height" style="display: inline-block; width: 15px">0</p>
+			<div class="wrapper">
+				<span>How high? </span>
+				<div class="slider" data-component="slider">
+					<div class="thumb"></div>
+				</div>
+				<p data-component="height" style="display: inline-block; width: 15px">0</p>
+			</div>
 		</div>
 		<div class="screen" data-component="screen"></div>
 	</div>
