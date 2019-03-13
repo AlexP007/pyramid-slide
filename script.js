@@ -61,29 +61,45 @@ class Slider {
 		this._max = max;
 		this.denominator = Math.round((this._elem.offsetWidth-this._thumb.offsetWidth)/this._max);
 
-		this._thumb.addEventListener('mousedown',this.startSliding.bind(this))
+		this._thumb.addEventListener('mousedown',this.startSliding.bind(this));
+		// for mobiles
+		this._thumb.addEventListener('touchstart',this.startSliding.bind(this));
 
 		this._thumb.ondragstart = function(){return false};
 	}
 	startSliding(e){
 
-		if(e.target != this._thumb) return;	
+		if(e.target != this._thumb) return;
 
-		this.shiftX = e.pageX - this._thumb.getBoundingClientRect().left;
+		let pageX = e.pageX || e.touches[0].pageX;	
+
+		this.shiftX = pageX - this._thumb.getBoundingClientRect().left;
 		let moveSlider = this.moveSlider.bind(this);
 
 		addEventListener('mousemove',moveSlider);
+
+		// for mobiles
+		addEventListener('touchmove',moveSlider);
 
 		addEventListener('mouseup', function remover() {
 			removeEventListener('mousemove', moveSlider);
 			removeEventListener('mouseup', remover);
 
 		}.bind(this));
+		//for mobiles
+		addEventListener('touchend', function remover() {
+			removeEventListener('touchmove', moveSlider);
+			removeEventListener('touchend', remover);
+
+		}.bind(this));
 	}
 	moveSlider(e){
+		let pageX = e.pageX || e.touches[0].pageX;
 		let style = this._thumb.style;
-		let left = e.pageX - this.shiftX - this.coords.left;
+		let left = pageX  - this.shiftX - this.coords.left;
 		if(left <= 0) left = 0;
+
+		console.log(pageX);
 
 		let right = this._elem.offsetWidth - this._thumb.offsetWidth;
 
