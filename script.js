@@ -99,8 +99,6 @@ class Slider {
 		let left = pageX  - this.shiftX - this.coords.left;
 		if(left <= 0) left = 0;
 
-		console.log(pageX);
-
 		let right = this._elem.offsetWidth - this._thumb.offsetWidth;
 
 		if(left >= right ) left = right;
