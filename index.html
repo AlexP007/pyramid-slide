@@ -107,7 +107,7 @@
 			onchange(e){
 				console.log(e);
 				this.height = e.detail.height || this.height;
-				this.brick = e.detail.brick || '#';
+				this.brick = e.detail.brick || this.brick || '#';
 				this._parts.height.textContent = this.height;
 				this._parts.screen.innerHTML = this.pyramidDraw();
 			}
